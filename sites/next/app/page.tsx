@@ -26,7 +26,7 @@ export default async function Home() {
       {data.layout.map((block) => {
         switch (block.blockType) {
           case "RichText":
-            return <RichText {...block} />;
+            return <RichText key={block.id} {...block} />;
           default:
             return null;
         }

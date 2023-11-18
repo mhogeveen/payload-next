@@ -18,8 +18,6 @@ const Pages: CollectionConfig = {
     {
       name: "layout",
       type: "blocks",
-      minRows: 0,
-      maxRows: 20,
       blocks: [RichText],
     },
   ],
