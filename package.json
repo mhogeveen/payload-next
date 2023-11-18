@@ -1,0 +1,12 @@
+{
+  "name": "payload-test",
+  "version": "1.0.0",
+  "description": "Payload CMS and Next.js test",
+  "scripts": {
+    "dev": "turbo run dev"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "turbo": "^1.10.16"
+  }
+}
