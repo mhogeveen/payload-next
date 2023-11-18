@@ -1,6 +1,8 @@
 import { RichText } from "./RichText";
+import { Page } from "../../cms/generated/types";
+import { notFound } from "next/navigation";
 
-async function getData() {
+async function getPage() {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/api/pages/6558b70fcf407d582deb5aa6`,
@@ -15,10 +17,20 @@ async function getData() {
 }
 
 export default async function Home() {
-  const data = await getData();
+  const data: Page = await getPage();
+
+  if (!data.layout) notFound();
+
   return (
     <main>
-      <RichText content={data.content} />
+      {data.layout.map((block) => {
+        switch (block.blockType) {
+          case "RichText":
+            return <RichText {...block} />;
+          default:
+            return null;
+        }
+      })}
     </main>
   );
 }

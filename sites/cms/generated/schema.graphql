@@ -268,10 +268,19 @@ type usersMe {
 
 type Page {
   id: String
-  title: String!
-  content(depth: Int): JSON
+  title: String
+  layout: [Page_Layout!]
   updatedAt: DateTime
   createdAt: DateTime
+}
+
+union Page_Layout = RichText
+
+type RichText {
+  content(depth: Int): JSON
+  id: String
+  blockName: String
+  blockType: String
 }
 
 """
@@ -295,7 +304,6 @@ type Pages {
 
 input Page_where {
   title: Page_title_operator
-  content: Page_content_operator
   updatedAt: Page_updatedAt_operator
   createdAt: Page_createdAt_operator
   id: Page_id_operator
@@ -311,13 +319,6 @@ input Page_title_operator {
   in: [String]
   not_in: [String]
   all: [String]
-}
-
-input Page_content_operator {
-  equals: JSON
-  not_equals: JSON
-  like: JSON
-  contains: JSON
   exists: Boolean
 }
 
@@ -356,7 +357,6 @@ input Page_id_operator {
 
 input Page_where_and {
   title: Page_title_operator
-  content: Page_content_operator
   updatedAt: Page_updatedAt_operator
   createdAt: Page_createdAt_operator
   id: Page_id_operator
@@ -366,7 +366,6 @@ input Page_where_and {
 
 input Page_where_or {
   title: Page_title_operator
-  content: Page_content_operator
   updatedAt: Page_updatedAt_operator
   createdAt: Page_createdAt_operator
   id: Page_id_operator
@@ -384,7 +383,7 @@ type pagesDocAccess {
 
 type PagesDocAccessFields {
   title: PagesDocAccessFields_title
-  content: PagesDocAccessFields_content
+  layout: PagesDocAccessFields_layout
   updatedAt: PagesDocAccessFields_updatedAt
   createdAt: PagesDocAccessFields_createdAt
 }
@@ -412,26 +411,26 @@ type PagesDocAccessFields_title_Delete {
   permission: Boolean!
 }
 
-type PagesDocAccessFields_content {
-  create: PagesDocAccessFields_content_Create
-  read: PagesDocAccessFields_content_Read
-  update: PagesDocAccessFields_content_Update
-  delete: PagesDocAccessFields_content_Delete
+type PagesDocAccessFields_layout {
+  create: PagesDocAccessFields_layout_Create
+  read: PagesDocAccessFields_layout_Read
+  update: PagesDocAccessFields_layout_Update
+  delete: PagesDocAccessFields_layout_Delete
 }
 
-type PagesDocAccessFields_content_Create {
+type PagesDocAccessFields_layout_Create {
   permission: Boolean!
 }
 
-type PagesDocAccessFields_content_Read {
+type PagesDocAccessFields_layout_Read {
   permission: Boolean!
 }
 
-type PagesDocAccessFields_content_Update {
+type PagesDocAccessFields_layout_Update {
   permission: Boolean!
 }
 
-type PagesDocAccessFields_content_Delete {
+type PagesDocAccessFields_layout_Delete {
   permission: Boolean!
 }
 
@@ -932,7 +931,7 @@ type pagesAccess {
 
 type PagesFields {
   title: PagesFields_title
-  content: PagesFields_content
+  layout: PagesFields_layout
   updatedAt: PagesFields_updatedAt
   createdAt: PagesFields_createdAt
 }
@@ -960,26 +959,26 @@ type PagesFields_title_Delete {
   permission: Boolean!
 }
 
-type PagesFields_content {
-  create: PagesFields_content_Create
-  read: PagesFields_content_Read
-  update: PagesFields_content_Update
-  delete: PagesFields_content_Delete
+type PagesFields_layout {
+  create: PagesFields_layout_Create
+  read: PagesFields_layout_Read
+  update: PagesFields_layout_Update
+  delete: PagesFields_layout_Delete
 }
 
-type PagesFields_content_Create {
+type PagesFields_layout_Create {
   permission: Boolean!
 }
 
-type PagesFields_content_Read {
+type PagesFields_layout_Read {
   permission: Boolean!
 }
 
-type PagesFields_content_Update {
+type PagesFields_layout_Update {
   permission: Boolean!
 }
 
-type PagesFields_content_Delete {
+type PagesFields_layout_Delete {
   permission: Boolean!
 }
 
@@ -1268,15 +1267,15 @@ type usersResetPassword {
 }
 
 input mutationPageInput {
-  title: String!
-  content: JSON
+  title: String
+  layout: JSON
   updatedAt: String
   createdAt: String
 }
 
 input mutationPageUpdateInput {
   title: String
-  content: JSON
+  layout: JSON
   updatedAt: String
   createdAt: String
 }

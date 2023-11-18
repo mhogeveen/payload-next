@@ -30,14 +30,20 @@ export interface User {
 }
 export interface Page {
   id: string;
-  title: string;
+  title?: string | null;
+  layout?: RichText[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface RichText {
   content?:
     | {
         [k: string]: unknown;
       }[]
     | null;
-  updatedAt: string;
-  createdAt: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'RichText';
 }
 export interface PayloadPreference {
   id: string;

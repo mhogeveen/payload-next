@@ -1,4 +1,5 @@
-import React, { Fragment } from "react";
+import { Fragment, ReactElement } from "react";
+import { RichText as TRichText } from "@/../cms/generated/types";
 
 type SlateLeaves = {
   code?: boolean;
@@ -34,12 +35,11 @@ type SlateLinkNode = {
 } & SlateLeaves;
 
 type SlateNode = SlateDefaultNode | SlateLinkNode;
-type SlateData = SlateNode[];
 
-const serialize = (children?: SlateData) =>
+const serialize = (children?: TRichText["content"]) =>
   children?.filter(Boolean).map((node: SlateNode, i: number) => {
     if ("text" in node) {
-      let text = <>{node.text}</>;
+      let text: ReactElement = <>{node.text}</>;
 
       if (node.bold) {
         text = <strong key={i}>{text}</strong>;
@@ -88,7 +88,7 @@ const serialize = (children?: SlateData) =>
     }
   });
 
-export const RichText = ({ content }: { content: SlateData }) => {
+export const RichText = ({ content }: TRichText) => {
   if (!content) return null;
-  return serialize(content);
+  return <>{serialize(content)}</>;
 };
