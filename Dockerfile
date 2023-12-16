@@ -7,7 +7,7 @@ RUN mkdir -p /app
 WORKDIR /app
 
 COPY sites/cms/package.json  .
-COPY siets/cms/pnpm-lock.yaml .
+COPY sites/cms/pnpm-lock.yaml .
 
 RUN apk add git
 
