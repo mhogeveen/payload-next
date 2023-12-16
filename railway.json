@@ -1,0 +1,9 @@
+{
+  "build": {
+    "builder": "NIXPACKS",
+    "buildCommand": "pnpm --filter cms build"
+  },
+  "deploy": {
+    "startCommand": "pnpm --filter cms serve"
+  }
+}
