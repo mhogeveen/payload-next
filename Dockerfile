@@ -7,6 +7,7 @@ COPY package.json  .
 COPY pnpm-lock.yaml .
 
 RUN apk add git
+RUN apk add pnpm
 
 RUN pnpm install --frozen-lockfile
 
