@@ -11,7 +11,7 @@ COPY pnpm-lock.yaml .
 
 RUN apk add git
 
-RUN pnpm install --frozen-lockfile
+RUN pnpm install
 
 COPY . .
 
