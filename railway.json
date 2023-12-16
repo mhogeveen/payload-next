@@ -1,9 +1,15 @@
 {
   "build": {
     "builder": "NIXPACKS",
-    "buildCommand": "pnpm --filter cms build"
+    "buildCommand": "pnpm --filter cms build",
+    "watchPatterns": [
+      "sites/cms/**"
+    ]
   },
   "deploy": {
-    "startCommand": "pnpm --filter cms serve"
+    "startCommand": "pnpm --filter cms serve",
+    "numReplicas": 1,
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 3
   }
 }
