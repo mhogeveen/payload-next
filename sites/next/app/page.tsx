@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 async function getPage() {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/pages/6558b70fcf407d582deb5aa6`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/pages/657db1d8e77e06c0c6a0726e`,
       {
         cache: "no-cache",
       }

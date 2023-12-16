@@ -22,6 +22,7 @@ export default buildConfig({
   collections: [Users, Pages],
   typescript: {
     outputFile: path.resolve(__dirname, "../generated/types.ts"),
+    declare: false,
   },
   graphQL: {
     schemaOutputFile: path.resolve(__dirname, "../generated/schema.graphql"),
