@@ -1,15 +1,16 @@
-import { RichText } from "./RichText";
-import { Page } from "../../cms/generated/types";
+import { RichText } from "../components/RichText";
+import { Page } from "cms/generated/types";
 import { notFound } from "next/navigation";
+import { apiURL, authHeader } from "../config";
 
 async function getPage() {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/pages/657db1d8e77e06c0c6a0726e`,
-      {
-        cache: "no-cache",
-      }
-    );
+    const res = await fetch(`${apiURL}/api/pages/657db1d8e77e06c0c6a0726e`, {
+      cache: "no-cache",
+      headers: {
+        "X-Auth-Token": authHeader,
+      },
+    });
     return res.json();
   } catch (e) {
     console.error(e);

@@ -2,9 +2,7 @@
   "build": {
     "builder": "NIXPACKS",
     "buildCommand": "pnpm --filter cms build",
-    "watchPatterns": [
-      "sites/cms/**"
-    ]
+    "watchPatterns": ["sites/cms/**"]
   },
   "deploy": {
     "startCommand": "pnpm --filter cms serve",

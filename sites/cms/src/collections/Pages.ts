@@ -1,10 +1,11 @@
 import { CollectionConfig } from "payload/types";
 import { RichText } from "../blocks/RichText";
+import { readAccessWithAuth } from "../access/collections";
 
 const Pages: CollectionConfig = {
   slug: "pages",
   access: {
-    read: () => true,
+    read: readAccessWithAuth,
   },
   auth: false,
   admin: {

@@ -1,14 +1,32 @@
 type Query {
   User(id: String!, draft: Boolean): User
-  Users(draft: Boolean, where: User_where, limit: Int, page: Int, sort: String): Users
+  Users(
+    draft: Boolean
+    where: User_where
+    limit: Int
+    page: Int
+    sort: String
+  ): Users
   docAccessUser(id: String!): usersDocAccess
   meUser: usersMe
   initializedUser: Boolean
   Page(id: String!, draft: Boolean): Page
-  Pages(draft: Boolean, where: Page_where, limit: Int, page: Int, sort: String): Pages
+  Pages(
+    draft: Boolean
+    where: Page_where
+    limit: Int
+    page: Int
+    sort: String
+  ): Pages
   docAccessPage(id: String!): pagesDocAccess
   PayloadPreference(id: String!, draft: Boolean): PayloadPreference
-  PayloadPreferences(draft: Boolean, where: PayloadPreference_where, limit: Int, page: Int, sort: String): PayloadPreferences
+  PayloadPreferences(
+    draft: Boolean
+    where: PayloadPreference_where
+    limit: Int
+    page: Int
+    sort: String
+  ): PayloadPreferences
   docAccessPayloadPreference(id: String!): payload_preferencesDocAccess
   Access: Access
 }
@@ -35,7 +53,10 @@ scalar DateTime
 """
 A field whose value conforms to the standard internet email address format as specified in HTML Spec: https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address.
 """
-scalar EmailAddress @specifiedBy(url: "https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address")
+scalar EmailAddress
+  @specifiedBy(
+    url: "https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address"
+  )
 
 type Users {
   docs: [User]
@@ -1201,20 +1222,42 @@ type PayloadPreferencesDeleteAccess {
 
 type Mutation {
   createUser(data: mutationUserInput!, draft: Boolean): User
-  updateUser(id: String!, autosave: Boolean, data: mutationUserUpdateInput!, draft: Boolean): User
+  updateUser(
+    id: String!
+    autosave: Boolean
+    data: mutationUserUpdateInput!
+    draft: Boolean
+  ): User
   deleteUser(id: String!): User
   refreshTokenUser(token: String): usersRefreshedUser
   logoutUser: String
   unlockUser(email: String!): Boolean!
   loginUser(email: String, password: String): usersLoginResult
-  forgotPasswordUser(disableEmail: Boolean, email: String!, expiration: Int): Boolean!
+  forgotPasswordUser(
+    disableEmail: Boolean
+    email: String!
+    expiration: Int
+  ): Boolean!
   resetPasswordUser(password: String, token: String): usersResetPassword
   verifyEmailUser(token: String): Boolean
   createPage(data: mutationPageInput!, draft: Boolean): Page
-  updatePage(id: String!, autosave: Boolean, data: mutationPageUpdateInput!, draft: Boolean): Page
+  updatePage(
+    id: String!
+    autosave: Boolean
+    data: mutationPageUpdateInput!
+    draft: Boolean
+  ): Page
   deletePage(id: String!): Page
-  createPayloadPreference(data: mutationPayloadPreferenceInput!, draft: Boolean): PayloadPreference
-  updatePayloadPreference(id: String!, autosave: Boolean, data: mutationPayloadPreferenceUpdateInput!, draft: Boolean): PayloadPreference
+  createPayloadPreference(
+    data: mutationPayloadPreferenceInput!
+    draft: Boolean
+  ): PayloadPreference
+  updatePayloadPreference(
+    id: String!
+    autosave: Boolean
+    data: mutationPayloadPreferenceUpdateInput!
+    draft: Boolean
+  ): PayloadPreference
   deletePayloadPreference(id: String!): PayloadPreference
 }
 

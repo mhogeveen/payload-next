@@ -15,20 +15,22 @@ export default buildConfig({
     user: Users.slug,
     bundler: webpackBundler(),
   },
+  collections: [Users, Pages],
   cors: [PUBLIC_DOMAIN || "http://localhost:3000"],
   csrf: [PUBLIC_DOMAIN || "http://localhost:3000"],
-  serverURL: PUBLIC_DOMAIN || "http://localhost:4000",
+  db: mongooseAdapter({
+    url: process.env.DATABASE_URI,
+  }),
+  debug: process.env.NODE_ENV !== "production",
   editor: slateEditor({}),
-  collections: [Users, Pages],
-  typescript: {
-    outputFile: path.resolve(__dirname, "../generated/types.ts"),
-    declare: false,
-  },
   graphQL: {
     schemaOutputFile: path.resolve(__dirname, "../generated/schema.graphql"),
   },
   plugins: [],
-  db: mongooseAdapter({
-    url: process.env.DATABASE_URI,
-  }),
+  serverURL: PUBLIC_DOMAIN || "http://localhost:4000",
+  telemetry: false,
+  typescript: {
+    outputFile: path.resolve(__dirname, "../generated/types.ts"),
+    declare: false,
+  },
 });

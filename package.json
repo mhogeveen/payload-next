@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "Payload CMS and Next.js test",
   "scripts": {
-    "dev": "turbo run dev"
+    "dev": "turbo run dev",
+    "dev:cms": "pnpm --filter cms dev",
+    "dev:next": "pnpm --filter next dev"
   },
   "license": "ISC",
   "devDependencies": {
+    "prettier": "^3.1.1",
     "turbo": "^1.10.16"
   }
 }
