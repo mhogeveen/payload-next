@@ -10,8 +10,8 @@ export interface Config {
   collections: {
     users: User;
     pages: Page;
-    "payload-preferences": PayloadPreference;
-    "payload-migrations": PayloadMigration;
+    'payload-preferences': PayloadPreference;
+    'payload-migrations': PayloadMigration;
   };
   globals: {};
 }
@@ -30,6 +30,7 @@ export interface User {
 }
 export interface Page {
   id: string;
+  slug: string;
   title?: string | null;
   layout?: RichText[] | null;
   updatedAt: string;
@@ -43,12 +44,12 @@ export interface RichText {
     | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: "RichText";
+  blockType: 'RichText';
 }
 export interface PayloadPreference {
   id: string;
   user: {
-    relationTo: "users";
+    relationTo: 'users';
     value: string | User;
   };
   key?: string | null;

@@ -13,6 +13,21 @@ const Pages: CollectionConfig = {
   },
   fields: [
     {
+      name: "slug",
+      type: "text",
+      required: true,
+      validate: (value) => {
+        const VALID_SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+        const isValidSlug = VALID_SLUG_PATTERN.test(value);
+
+        if (isValidSlug) {
+          return true;
+        }
+
+        return "Value must be of shape 'my-new-page'";
+      },
+    },
+    {
       name: "title",
       type: "text",
     },
