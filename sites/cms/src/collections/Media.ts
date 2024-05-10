@@ -1,35 +1,16 @@
 import { S3UploadCollectionConfig } from "payload-s3-upload";
+import { readAccessWithAuth } from "../access/collections";
 
 const AWS_BUCKET = process.env.PAYLOAD_PUBLIC_AWS_BUCKET || "";
 const AWS_CLOUDFRONT = process.env.PAYLOAD_PUBLIC_AWS_CLOUDFRONT_DOMAIN || "";
 
-type DocSize = {
-  filename: string;
-  filesize: number;
-  height: number;
-  mimeType: string;
-  url: string;
-  width: number;
-};
-
-type Doc = {
-  createdAt: string;
-  filename: string;
-  filesize: number;
-  height: number;
-  id: string;
-  mimeType: string;
-  sizes: Record<string, DocSize>;
-  updatedAt: string;
-  url: string;
-  width: number;
-};
-
 const Media: S3UploadCollectionConfig = {
   slug: "media",
+  access: {
+    read: readAccessWithAuth,
+  },
   upload: {
-    staticURL: "/assets",
-    staticDir: "assets",
+    mimeTypes: ["image/*"],
     disableLocalStorage: true,
     s3: {
       bucket: AWS_BUCKET,
@@ -55,10 +36,8 @@ const Media: S3UploadCollectionConfig = {
         crop: "center",
       },
     ],
-    adminThumbnail: ({ doc }: { doc: Doc }) =>
-      `${AWS_CLOUDFRONT}/images/${doc.sizes.thumbnail.filename}`,
+    adminThumbnail: "thumbnail",
   },
-  // create a field to access uploaded files in s3 from payload api
   fields: [
     {
       name: "url",
@@ -67,23 +46,19 @@ const Media: S3UploadCollectionConfig = {
         create: () => false,
       },
       admin: {
-        disabled: true,
+        hidden: true,
       },
       hooks: {
         afterRead: [
           (args) => {
-            const doc = args.data as Doc;
-            const sizeUrlMapping = Object.entries(doc.sizes).reduce(
-              (acc, [label, sizeDoc]) => {
-                acc[label] = `${AWS_CLOUDFRONT}/images/${sizeDoc.filename}`;
-                return acc;
-              },
-              {
-                original: `${AWS_CLOUDFRONT}/images/${doc.filename}`,
-              }
+            args.data.url = `${AWS_CLOUDFRONT}/images/${args.data.filename}`;
+
+            Object.keys(args.data.sizes).forEach(
+              (size) =>
+                (args.data.sizes[
+                  size
+                ].url = `${AWS_CLOUDFRONT}/images/${args.data.sizes[size].filename}`)
             );
-            return sizeUrlMapping;
-            // return `${AWS_CLOUDFRONT}/images/${args.data.filename}`;
           },
         ],
       },

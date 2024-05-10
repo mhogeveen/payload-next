@@ -1,5 +1,6 @@
 import { Fragment, ReactElement } from "react";
-import { RichText as TRichText } from "cms/generated/types";
+import { Media, RichText as TRichText } from "cms/generated/types";
+import Image from "next/image";
 
 type SlateLeaves = {
   code?: boolean;
@@ -13,16 +14,16 @@ type SlateDefaultNode = {
   children?: SlateNode[];
   text?: string;
   type?:
-  | "h1"
-  | "h2"
-  | "h3"
-  | "h4"
-  | "h5"
-  | "h6"
-  | "ul"
-  | "ol"
-  | "li"
-  | "blockquote";
+    | "h1"
+    | "h2"
+    | "h3"
+    | "h4"
+    | "h5"
+    | "h6"
+    | "ul"
+    | "ol"
+    | "li"
+    | "blockquote";
 } & SlateLeaves;
 
 type SlateLinkNode = {
@@ -34,7 +35,14 @@ type SlateLinkNode = {
   url: string;
 } & SlateLeaves;
 
-type SlateNode = SlateDefaultNode | SlateLinkNode;
+type SlateUploadNode = {
+  children?: SlateNode[];
+  relationTo: string;
+  type: "upload";
+  value: Media;
+};
+
+type SlateNode = SlateDefaultNode | SlateLinkNode | SlateUploadNode;
 
 const serialize = (children?: TRichText["content"]) =>
   children?.filter(Boolean).map((node: SlateNode, i: number) => {
@@ -112,6 +120,16 @@ const serialize = (children?: TRichText["content"]) =>
             {serialize(node.children)}
           </a>
         );
+      case "upload":
+        return node.value.url ? (
+          <img
+            alt=""
+            key={i}
+            src={node.value.url}
+            width={node.value.width || 0}
+            height={node.value.height || 0}
+          />
+        ) : null;
       default:
         return <p key={i}>{serialize(node.children)}</p>;
     }

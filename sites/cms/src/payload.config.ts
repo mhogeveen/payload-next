@@ -32,7 +32,7 @@ export default buildConfig({
   plugins: [
     s3Upload(
       new S3Client({
-        region: process.env.PAYLOAD_PUBLIC_AWS_REGION,
+        region: process.env.AWS_REGION,
         credentials: {
           accessKeyId: process.env.AWS_KEY,
           secretAccessKey: process.env.AWS_SECRET,

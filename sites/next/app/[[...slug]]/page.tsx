@@ -1,5 +1,4 @@
 import { RichText } from "../../components/RichText";
-import { Page } from "cms/generated/types";
 import { notFound } from "next/navigation";
 import { getPage } from "./helpers/getPage";
 
@@ -8,7 +7,7 @@ type PageProps = {
   searchParams: Record<string, string>;
 };
 
-export default async function Page({ params }: PageProps) {
+export default async function HomePage({ params }: PageProps) {
   const page = await getPage(params);
 
   if (!page) notFound();
